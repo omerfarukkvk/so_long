@@ -15,15 +15,18 @@ typedef struct chr
 
 typedef struct s_map
 {
+    int		height;
+	int		width;
+	char	**allmap;
 }   t_map;
 
 
 typedef struct s_data
 {
-    t_chr   *chr;
-    t_map   *map;
-    void    *mlx;
-    void    *win;
+    t_chr	*chr;
+    t_map	*map;
+    void	*mlx;
+    void	*win;
 }   t_data;
 
 
