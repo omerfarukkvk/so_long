@@ -29,5 +29,8 @@ typedef struct s_data
     void	*win;
 }   t_data;
 
+void	ft_map_control(char *path, t_data *data);
+int		ft_map_name_check(char *path);
+int		ft_map_size_check(t_data *data,char *line);
 
 #endif

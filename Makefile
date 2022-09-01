@@ -3,7 +3,7 @@ LFLAGS = -framework AppKit -framework OpenGL -L./mlx -lmlx
 MLX = ./mlx/libmlx.a
 GNL = $(wildcard gnl/*c)
 GNLOBJS = $(GNL:.c=.o)
-SRCS = so_long.c	
+SRCS = so_long.c	map_control.c
 OBJS = $(SRCS:.c=.o)
 NAME = so_long
 
