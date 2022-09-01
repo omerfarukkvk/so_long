@@ -49,4 +49,56 @@ int	ft_map_size_check(t_data *data,char *line)
 			&& (int)ft_strlen(line) != data->map->width));
 }
 
+void	ft_read_map(t_data *data, char *path)
+{
+	int		fd;
+	int		i;
+	char	*line;
 
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+		ft_printf("files not openning");
+	line = get_next_line(fd);
+	data->map->allmap = ft_calloc(data->map->height, sizeof(char *));
+	i = 0;
+	while (line)
+	{
+		data->map->allmap[i] = ft_calloc(data->map->width, 1);
+		ft_strlcpy(data->map->allmap[i], line, data->map->width + 1);
+		free(line);
+		line = get_next_line(fd);
+		i++;
+	}
+	free(line);
+	close(fd);
+}
+
+void	ft_item_control(t_data *data)
+{
+	char **allmap;
+
+	allmap = data->map->allmap;
+	ft_wall_control(data, allmap);
+}
+
+void	ft_wall_control(t_data *data, char **allmap)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (++i < data->map->height)
+	{
+		if (allmap[i][0] == '1' && allmap[i][data->map->width] == '1')
+		{
+			j = -1; 
+			while (allmap[i][j])
+			{
+				if (allmap[0][j] != '1' && allmap[data->map->height][j])
+					ft_printf("horizantal wall wrong");
+			}	
+		}
+		else
+			ft_printf("duvar hatası");
+	}
+}

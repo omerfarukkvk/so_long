@@ -11,10 +11,11 @@ int main(int ac, char **av)
         data->chr = ft_calloc(1, sizeof(t_chr));
 		ft_map_control(av[1], data);
         data->mlx = mlx_init();
-		data->win = mlx_new_window(data->mlx, data->map->width * 64,
-			data->map->height * 64, "SOLONG");
-		
-        mlx_loop(data->mlx);
+		//data->win = mlx_new_window(data->mlx, data->map->width * 64,
+		//	data->map->height * 64, "SOLONG");
+		ft_read_map(data, av[1]);
+		ft_item_control(data);
+        //mlx_loop(data->mlx);
     }
     else
         ft_printf("Error!!");
