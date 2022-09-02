@@ -19,8 +19,8 @@ int main(int ac, char **av)
         data->mlx = mlx_init();
 		//data->win = mlx_new_window(data->mlx, data->map->width * 64,
 		//	data->map->height * 64, "SOLONG");
-		ft_read_map(data, av[1]);
-		ft_item_control(data);
+		//ft_read_map(data, av[1]);
+		//ft_item_control(data);
         //mlx_loop(data->mlx);
     }
     else

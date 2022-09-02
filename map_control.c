@@ -25,6 +25,7 @@ void	ft_map_control(char *path, t_data *data)
 	line = get_next_line(fd);
 	if (line == 0)
 		ft_error("Map is empty");
+	//ft_printf("%d",(int)ft_strlen(line));
 	data->map->width = (int)ft_strlen(line)-1;
 	while (line !=NULL)
 	{
