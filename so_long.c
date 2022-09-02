@@ -1,5 +1,11 @@
 #include "so_long.h"
 
+void	ft_error(char *msg)
+{
+	ft_printf("%s",msg);
+	exit(0);
+}
+
 int main(int ac, char **av)
 {
     t_data  *data;
@@ -18,5 +24,5 @@ int main(int ac, char **av)
         //mlx_loop(data->mlx);
     }
     else
-        ft_printf("Error!!");
+        ft_error("Error!!");
 }

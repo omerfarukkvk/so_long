@@ -21,22 +21,19 @@ void	ft_map_control(char *path, t_data *data)
 	data->map->height = 0;
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		ft_printf("map not opening");
+		ft_error("map not opening");
 	line = get_next_line(fd);
 	if (line == 0)
-		ft_printf("Map is empty");
+		ft_error("Map is empty");
 	data->map->width = (int)ft_strlen(line)-1;
-	while (line)
+	while (line !=NULL)
 	{
 		if (ft_map_size_check(data, line))
-		{
-			ft_printf("wrong mapsize");
-			break;
-		}
+			ft_error("wrong mapsize");
 		data->map->height++;
 		free(line);
 		line = get_next_line(fd);
-	}
+	} 
 	free(line);
 	close(fd);
 }
@@ -57,7 +54,7 @@ void	ft_read_map(t_data *data, char *path)
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		ft_printf("files not openning");
+		ft_error("files not openning");
 	line = get_next_line(fd);
 	data->map->allmap = ft_calloc(data->map->height, sizeof(char *));
 	i = 0;
@@ -69,6 +66,8 @@ void	ft_read_map(t_data *data, char *path)
 		line = get_next_line(fd);
 		i++;
 	}
+	data->map->allmap[i]=NULL;
+	ft_printf("%s",data->map->allmap[0][0]);
 	free(line);
 	close(fd);
 }
@@ -87,18 +86,21 @@ void	ft_wall_control(t_data *data, char **allmap)
 	int	j;
 
 	i = -1;
-	while (++i < data->map->height)
+ 	while (++i < data->map->height)
 	{
-		if (allmap[i][0] == '1' && allmap[i][data->map->width] == '1')
+		ft_printf("%s", allmap[0][0]);
+		if (allmap[i][0] == '1' && ft_strlen(allmap[i - 1]) == '1')
 		{
-			j = -1; 
+			j = 0; 
 			while (allmap[i][j])
 			{
-				if (allmap[0][j] != '1' && allmap[data->map->height][j])
-					ft_printf("horizantal wall wrong");
-			}	
+				if (allmap[0][j] != '1' || allmap[data->map->height][j])
+					ft_error("horizantal wall wrong");
+				else
+					j++;
+			}
 		}
 		else
-			ft_printf("duvar hatası");
-	}
+			ft_error("duvar hatası");
+	} 
 }
