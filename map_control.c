@@ -27,7 +27,6 @@ void	ft_map_control(char *path, t_data *data)
 	line = get_next_line(fd);
 	if (line == 0)
 		ft_error("Map is empty");
-	//ft_printf("%d",(int)ft_strlen(line));
 	data->map->width = (int)ft_strlen(line)-1;
 	while (line)
 	{
@@ -61,7 +60,6 @@ void	ft_read_map(t_data *data, char *path)
 	line = get_next_line(fd);
 	data->map->allmap = ft_calloc(data->map->height, sizeof(char *));
 	i = 0;
-	//ft_printf("%d",data->map->width);
 	while (line)
 	{
 		data->map->allmap[i] = ft_calloc(data->map->width, sizeof(char));
@@ -71,7 +69,6 @@ void	ft_read_map(t_data *data, char *path)
 		line = get_next_line(fd);
 	
 	}
-	// data->map->allmap[i]=NULL;
 	free(line);
 	close(fd);
 	
@@ -83,42 +80,34 @@ void	ft_item_control(t_data *data)
 
 	allmap = data->map->allmap;
 	ft_wall_control(data, allmap);
-	
 }
 
 void	ft_wall_control(t_data *data, char **allmap)
 {
 	int	i;
-	// int	j;
-	int		a;
-	int		height;
+	int	j;
 
-	height = data->map->height;
-	a = data->map->width - 1;
 	i = 0;
-	(void)allmap;
+	ft_printf("%d", data->map->height);
+	while (i < data->map->height)
+	{
 
- 	while (a >= 0)
-	 {
-		 if (allmap[0][a] == '1' && allmap[data->map->height - 1] [a] == '1')
-		 {
-			while (height-- > 0)
+		if (allmap[i][0] == '1' && allmap[i][data->map->width - 1] == '1')
+		{
+			j = 0;
+			while (allmap[0][j] != '\n' || allmap[data->map->height - 1][j] != '\n')
 			{
-				
-				if (allmap[height][0] == '1' && allmap[height][a] == '1')
-				{ 	
-					ft_printf("%d", height);
-					ft_printf("doğru\n");
+				if (allmap[i][j] == '1' && allmap[i][data->map->width - 1] == '1')
+				{
+					j++;
+					ft_printf("aaa");
 				}
 				else
-					ft_error("Mapp WALL Error.");
+					ft_error("horizantal border error");
 			}
-			
-		 }
-		 else
-		 	ft_printf("false");
-		 
-		 a--;
-	 }
-	 
+		}
+		else
+			ft_error("zaaa");
+		i++;
+	}
 }
