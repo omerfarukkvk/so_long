@@ -17,7 +17,9 @@ void	ft_map_control(char *path, t_data *data)
 {
 	char	*line;
 	int		fd;
-
+	int		a;
+	
+	a = 0;
 	data->map->height = 0;
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
@@ -27,13 +29,13 @@ void	ft_map_control(char *path, t_data *data)
 		ft_error("Map is empty");
 	//ft_printf("%d",(int)ft_strlen(line));
 	data->map->width = (int)ft_strlen(line)-1;
-	while (line !=NULL)
+	while (line)
 	{
 		if (ft_map_size_check(data, line))
 			ft_error("wrong mapsize");
-		data->map->height++;
 		free(line);
 		line = get_next_line(fd);
+		data->map->height++;
 	} 
 	free(line);
 	close(fd);
@@ -59,18 +61,20 @@ void	ft_read_map(t_data *data, char *path)
 	line = get_next_line(fd);
 	data->map->allmap = ft_calloc(data->map->height, sizeof(char *));
 	i = 0;
+	//ft_printf("%d",data->map->width);
 	while (line)
 	{
-		data->map->allmap[i] = ft_calloc(data->map->width, 1);
+		data->map->allmap[i] = ft_calloc(data->map->width, sizeof(char));
 		ft_strlcpy(data->map->allmap[i], line, data->map->width + 1);
+		i++;
 		free(line);
 		line = get_next_line(fd);
-		i++;
+	
 	}
-	data->map->allmap[i]=NULL;
-	ft_printf("%s",data->map->allmap[0][0]);
+	// data->map->allmap[i]=NULL;
 	free(line);
 	close(fd);
+	
 }
 
 void	ft_item_control(t_data *data)
@@ -79,29 +83,42 @@ void	ft_item_control(t_data *data)
 
 	allmap = data->map->allmap;
 	ft_wall_control(data, allmap);
+	
 }
 
 void	ft_wall_control(t_data *data, char **allmap)
 {
 	int	i;
-	int	j;
+	// int	j;
+	int		a;
+	int		height;
 
-	i = -1;
- 	while (++i < data->map->height)
-	{
-		ft_printf("%s", allmap[0][0]);
-		if (allmap[i][0] == '1' && ft_strlen(allmap[i - 1]) == '1')
-		{
-			j = 0; 
-			while (allmap[i][j])
+	height = data->map->height;
+	a = data->map->width - 1;
+	i = 0;
+	(void)allmap;
+
+ 	while (a >= 0)
+	 {
+		 if (allmap[0][a] == '1' && allmap[data->map->height - 1] [a] == '1')
+		 {
+			while (height-- > 0)
 			{
-				if (allmap[0][j] != '1' || allmap[data->map->height][j])
-					ft_error("horizantal wall wrong");
+				
+				if (allmap[height][0] == '1' && allmap[height][a] == '1')
+				{ 	
+					ft_printf("%d", height);
+					ft_printf("doğru\n");
+				}
 				else
-					j++;
+					ft_error("Mapp WALL Error.");
 			}
-		}
-		else
-			ft_error("duvar hatası");
-	} 
+			
+		 }
+		 else
+		 	ft_printf("false");
+		 
+		 a--;
+	 }
+	 
 }
