@@ -91,23 +91,24 @@ void	ft_wall_control(t_data *data, char **allmap)
 	ft_printf("%d", data->map->height);
 	while (i < data->map->height)
 	{
-
 		if (allmap[i][0] == '1' && allmap[i][data->map->width - 1] == '1')
 		{
 			j = 0;
-			while (allmap[0][j] != '\n' || allmap[data->map->height - 1][j] != '\n')
+			while (!allmap[i][])
 			{
-				if (allmap[i][j] == '1' && allmap[i][data->map->width - 1] == '1')
+				if (allmap[i][j] != '1' && allmap[i][data->map->width - 1] != '1')
 				{
-					j++;
-					ft_printf("aaa");
+					ft_error("Hataa");
 				}
 				else
-					ft_error("horizantal border error");
+					j++;	
 			}
+			i++;
 		}
 		else
+		{
 			ft_error("zaaa");
-		i++;
+			i++;
+		}
 	}
 }
