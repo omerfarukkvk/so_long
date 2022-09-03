@@ -17,6 +17,9 @@ typedef struct s_map
 {
     int		height;
 	int		width;
+	int		c_cnt;
+	int		e_cnt;
+	int		p_cnt;
 	char	**allmap;
 }   t_map;
 
@@ -36,5 +39,6 @@ void	ft_read_map(t_data *data, char *path);
 void	ft_item_control(t_data *data);
 void	ft_wall_control(t_data *data, char **allmap);
 void	ft_error(char *msg);
+void	ft_component_control(char c, t_data *data);
 
 #endif

@@ -77,7 +77,10 @@ void	ft_read_map(t_data *data, char *path)
 void	ft_item_control(t_data *data)
 {
 	char **allmap;
-
+	
+	data->map->e_cnt = 0;
+	data->map->c_cnt = 0;
+	data->map->p_cnt = 0;
 	allmap = data->map->allmap;
 	ft_wall_control(data, allmap);
 }
@@ -88,27 +91,43 @@ void	ft_wall_control(t_data *data, char **allmap)
 	int	j;
 
 	i = 0;
-	ft_printf("%d", data->map->width);
 	while (i < data->map->height)
 	{
 		ft_printf("sa\n");
 		if (allmap[i][0] == '1' && allmap[i][data->map->width - 1] == '1')
 		{
 			j = 0;
-			while (j < data->map->width - 1)
+			while (j < data->map->width)
 			{
-				if (allmap[i][j] == '1') //hatalı
+				if (allmap[i][j] == '1')
 				{
 					j++;
-					ft_printf("b");
+					ft_printf("b\n");
 				}
-				else if ()
-					ft_error("Hataa");
-				j++;
+				else if (allmap[i][j] != '0')
+					j++;
+				else if (allmap[i][j] != '1')
+					ft_component_control(allmap[i][j], data);
 			}
+			printf("c_cnt %d\n", data->map->c_cnt);
 		}
+
 		else
 			ft_error("zaaa");
+		
 		i++;
 	}
+}
+
+void	ft_component_control(char c, t_data *data)
+{
+
+	if (c == 'E')
+		data->map->e_cnt++;
+	else if (c == 'C')
+		data->map->c_cnt++;
+	else if (c == 'P')
+		data->map->p_cnt++;
+	else
+		ft_error("Wrong map");
 }
