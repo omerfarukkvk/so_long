@@ -88,27 +88,27 @@ void	ft_wall_control(t_data *data, char **allmap)
 	int	j;
 
 	i = 0;
-	ft_printf("%d", data->map->height);
+	ft_printf("%d", data->map->width);
 	while (i < data->map->height)
 	{
+		ft_printf("sa\n");
 		if (allmap[i][0] == '1' && allmap[i][data->map->width - 1] == '1')
 		{
 			j = 0;
-			while (!allmap[i][])
+			while (j < data->map->width - 1)
 			{
-				if (allmap[i][j] != '1' && allmap[i][data->map->width - 1] != '1')
+				if (allmap[i][j] == '1') //hatalı
 				{
-					ft_error("Hataa");
+					j++;
+					ft_printf("b");
 				}
-				else
-					j++;	
+				else if ()
+					ft_error("Hataa");
+				j++;
 			}
-			i++;
 		}
 		else
-		{
 			ft_error("zaaa");
-			i++;
-		}
+		i++;
 	}
 }
