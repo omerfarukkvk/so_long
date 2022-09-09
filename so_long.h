@@ -39,6 +39,6 @@ void	ft_read_map(t_data *data, char *path);
 void	ft_item_control(t_data *data);
 void	ft_wall_control(t_data *data, char **allmap);
 void	ft_error(char *msg);
-void	ft_component_control(char c, t_data *data);
+int	ft_component_control(char c, t_data *data, int j);
 
 #endif

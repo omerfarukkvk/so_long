@@ -17,9 +17,7 @@ void	ft_map_control(char *path, t_data *data)
 {
 	char	*line;
 	int		fd;
-	int		a;
 	
-	a = 0;
 	data->map->height = 0;
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
@@ -90,36 +88,30 @@ void	ft_wall_control(t_data *data, char **allmap)
 	int	i;
 	int	j;
 
-	i = 0;
-	while (i < data->map->height)
+	i = -1;
+	while (++i < data->map->height)
 	{
-		ft_printf("sa\n");
 		if (allmap[i][0] == '1' && allmap[i][data->map->width - 1] == '1')
 		{
 			j = 0;
 			while (j < data->map->width)
 			{
-				if (allmap[i][j] == '1')
-				{
+				if (allmap[0][j] != '1'  || allmap[data->map->width-1][j] != '1')
+					ft_error("Wrong map wall");
+				else if (allmap[0][j] == '1' || allmap[data->map->width-1][j] == '1')
 					j++;
-					ft_printf("b\n");
-				}
-				else if (allmap[i][j] != '0')
+				else if (allmap[i][j] == '1')
 					j++;
 				else if (allmap[i][j] != '1')
-					ft_component_control(allmap[i][j], data);
+					j += ft_component_control(allmap[i][j], data, j);
 			}
-			printf("c_cnt %d\n", data->map->c_cnt);
 		}
-
 		else
-			ft_error("zaaa");
-		
-		i++;
+			ft_error("zaaa");	
 	}
 }
 
-void	ft_component_control(char c, t_data *data)
+int	ft_component_control(char c, t_data *data, int j)
 {
 
 	if (c == 'E')
@@ -128,6 +120,9 @@ void	ft_component_control(char c, t_data *data)
 		data->map->c_cnt++;
 	else if (c == 'P')
 		data->map->p_cnt++;
+	else if (c == '0')
+		return (j + 1);
 	else
-		ft_error("Wrong map");
+		return(ft_error("Wrong map"));
+	return (j + 1);
 }
