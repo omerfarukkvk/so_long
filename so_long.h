@@ -21,6 +21,7 @@ typedef struct s_map
 	int		e_cnt;
 	int		p_cnt;
 	char	**allmap;
+	char	**copymap;
 }   t_map;
 
 
@@ -40,5 +41,6 @@ void	ft_item_control(t_data *data);
 void	ft_wall_control(t_data *data, char **allmap);
 void	ft_error(char *msg);
 void	ft_component_control(t_data *data, char **allmap);
+void	ft_playable_control(t_data *data, char **allmap);
 
 #endif

@@ -82,6 +82,7 @@ void	ft_item_control(t_data *data)
 	allmap = data->map->allmap;
 	ft_wall_control(data, allmap);
 	ft_component_control(data, allmap);
+	ft_playable_control(data, allmap);
 }
 
 void	ft_wall_control(t_data *data, char **allmap)
@@ -135,10 +136,29 @@ void	ft_component_control(t_data *data, char **allmap)
 	if (data->map->p_cnt != 1)
 		ft_error("wrong player");
 	if (data->map->c_cnt < 1)
-		ft_error("wrong player");
+		ft_error("wrong collectible");
 	if (data->map->e_cnt < 1)
-		ft_error("wrong player");
-	ft_printf("%d\n",data->map->c_cnt);
-	ft_printf("%d\n",data->map->p_cnt);
-	ft_printf("%d\n",data->map->e_cnt);
+		ft_error("wrong exit");
+}
+
+void	ft_playable_control(t_data *data, char **allmap)
+{
+	int	i;
+	int	j;
+
+	data->map->copymap = ft_calloc(data->map->height, sizeof(char *));
+	i = 0;
+	j = 0;
+	while (allmap[i])
+	{
+		data->map->copymap[i] = ft_calloc(data->map->width, sizeof(char));
+		ft_strlcpy(data->map->copymap[i], allmap[i], data->map->width + 1);
+		i++;
+	}
+	// data->map->copymap[i] = '\0';
+	while (data->map->copymap[j])
+	{
+		ft_printf("%s", data->map->copymap[j]);
+		j++;
+	}
 }
