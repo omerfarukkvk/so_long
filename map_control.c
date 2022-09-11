@@ -81,6 +81,7 @@ void	ft_item_control(t_data *data)
 	data->map->p_cnt = 0;
 	allmap = data->map->allmap;
 	ft_wall_control(data, allmap);
+	ft_component_control(data, allmap);
 }
 
 void	ft_wall_control(t_data *data, char **allmap)
@@ -94,35 +95,50 @@ void	ft_wall_control(t_data *data, char **allmap)
 		if (allmap[i][0] == '1' && allmap[i][data->map->width - 1] == '1')
 		{
 			j = 0;
-			while (j < data->map->width)
+			while (allmap[i][j])
 			{
-				if (allmap[0][j] != '1'  || allmap[data->map->width-1][j] != '1')
-					ft_error("Wrong map wall");
-				else if (allmap[0][j] == '1' || allmap[data->map->width-1][j] == '1')
-					j++;
-				else if (allmap[i][j] == '1')
-					j++;
-				else if (allmap[i][j] != '1')
-					j += ft_component_control(allmap[i][j], data, j);
+				if (i == 0 || i == data->map->height - 1)
+				{
+					if (allmap[i][j] != '1')
+					{
+						ft_error("Map wall wrong. Please check it.");
+						break;
+					}
+				}
+				j++;
 			}
 		}
 		else
-			ft_error("zaaa");	
+			ft_error("Map wall wrong. Please check it.");
 	}
 }
 
-int	ft_component_control(char c, t_data *data, int j)
+void	ft_component_control(t_data *data, char **allmap)
 {
+	int	i;
+	int	j;
 
-	if (c == 'E')
-		data->map->e_cnt++;
-	else if (c == 'C')
-		data->map->c_cnt++;
-	else if (c == 'P')
-		data->map->p_cnt++;
-	else if (c == '0')
-		return (j + 1);
-	else
-		return(ft_error("Wrong map"));
-	return (j + 1);
+	i = -1;
+	while (++i < data->map->height)
+	{
+		j = -1;
+		while (allmap[i][++j])
+		{
+			if (allmap[i][j] == 'P')
+				data->map->p_cnt++;
+			else if (allmap[i][j] == 'C')
+				data->map->c_cnt++;
+			else if (allmap[i][j] == 'E')
+				data->map->e_cnt++;
+		}
+	}
+	if (data->map->p_cnt != 1)
+		ft_error("wrong player");
+	if (data->map->c_cnt < 1)
+		ft_error("wrong player");
+	if (data->map->e_cnt < 1)
+		ft_error("wrong player");
+	ft_printf("%d\n",data->map->c_cnt);
+	ft_printf("%d\n",data->map->p_cnt);
+	ft_printf("%d\n",data->map->e_cnt);
 }
