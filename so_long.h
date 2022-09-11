@@ -41,6 +41,7 @@ void	ft_item_control(t_data *data);
 void	ft_wall_control(t_data *data, char **allmap);
 void	ft_error(char *msg);
 void	ft_component_control(t_data *data, char **allmap);
-void	ft_playable_control(t_data *data, char **allmap);
+void	ft_playable_control(t_data *data);
+void	ft_copymap_control(t_data *data, char **copymap);
 
 #endif

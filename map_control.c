@@ -56,20 +56,19 @@ void	ft_read_map(t_data *data, char *path)
 	if (fd < 0)
 		ft_error("files not openning");
 	line = get_next_line(fd);
-	data->map->allmap = ft_calloc(data->map->height, sizeof(char *));
-	i = 0;
-	while (line)
+	i=0;
+	data->map->allmap = malloc(sizeof(char *) * (data->map->height + 1));
+	while (line && i<=data->map->height)
 	{
-		data->map->allmap[i] = ft_calloc(data->map->width, sizeof(char));
-		ft_strlcpy(data->map->allmap[i], line, data->map->width + 1);
-		i++;
+		data->map->allmap[i] = ft_strdup(line);
 		free(line);
 		line = get_next_line(fd);
-	
+		i++;
 	}
+	data->map->allmap[i] = 0;
+	i = 0;	
 	free(line);
 	close(fd);
-	
 }
 
 void	ft_item_control(t_data *data)
@@ -82,7 +81,7 @@ void	ft_item_control(t_data *data)
 	allmap = data->map->allmap;
 	ft_wall_control(data, allmap);
 	ft_component_control(data, allmap);
-	ft_playable_control(data, allmap);
+	ft_playable_control(data);
 }
 
 void	ft_wall_control(t_data *data, char **allmap)
@@ -96,18 +95,9 @@ void	ft_wall_control(t_data *data, char **allmap)
 		if (allmap[i][0] == '1' && allmap[i][data->map->width - 1] == '1')
 		{
 			j = 0;
-			while (allmap[i][j])
-			{
-				if (i == 0 || i == data->map->height - 1)
-				{
-					if (allmap[i][j] != '1')
-					{
-						ft_error("Map wall wrong. Please check it.");
-						break;
-					}
-				}
+			//make wall control
+			while (allmap[i][j] == '1')
 				j++;
-			}
 		}
 		else
 			ft_error("Map wall wrong. Please check it.");
@@ -141,24 +131,19 @@ void	ft_component_control(t_data *data, char **allmap)
 		ft_error("wrong exit");
 }
 
-void	ft_playable_control(t_data *data, char **allmap)
+void	ft_playable_control(t_data *data)
 {
 	int	i;
 	int	j;
 
 	data->map->copymap = ft_calloc(data->map->height, sizeof(char *));
-	i = 0;
-	j = 0;
-	while (allmap[i])
-	{
-		data->map->copymap[i] = ft_calloc(data->map->width, sizeof(char));
-		ft_strlcpy(data->map->copymap[i], allmap[i], data->map->width + 1);
-		i++;
-	}
-	// data->map->copymap[i] = '\0';
-	while (data->map->copymap[j])
-	{
-		ft_printf("%s", data->map->copymap[j]);
-		j++;
-	}
+	i = -1;
+	while (++i < data->map->height)
+		data->map->copymap[i] = ft_strdup(data->map->allmap[i]);
+	ft_copymap_control(data, data->map->copymap);
+}
+
+void	ft_copymap_control(t_data *data, char **copymap)
+{
+	
 }
