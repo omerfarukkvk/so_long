@@ -95,7 +95,6 @@ void	ft_wall_control(t_data *data, char **allmap)
 		if (allmap[i][0] == '1' && allmap[i][data->map->width - 1] == '1')
 		{
 			j = 0;
-			//make wall control
 			while (allmap[i][j] == '1')
 				j++;
 		}
@@ -116,7 +115,11 @@ void	ft_component_control(t_data *data, char **allmap)
 		while (allmap[i][++j])
 		{
 			if (allmap[i][j] == 'P')
+			{
 				data->map->p_cnt++;
+				data->chr->position_i = i;
+				data->chr->position_j = j;
+			}
 			else if (allmap[i][j] == 'C')
 				data->map->c_cnt++;
 			else if (allmap[i][j] == 'E')
@@ -127,23 +130,47 @@ void	ft_component_control(t_data *data, char **allmap)
 		ft_error("wrong player");
 	if (data->map->c_cnt < 1)
 		ft_error("wrong collectible");
-	if (data->map->e_cnt < 1)
+	if (data->map->e_cnt != 1)
 		ft_error("wrong exit");
 }
 
 void	ft_playable_control(t_data *data)
 {
 	int	i;
-	int	j;
 
+	data->map->copy_c = data->map->c_cnt;
+	data->map->copy_e = data->map->e_cnt;
 	data->map->copymap = ft_calloc(data->map->height, sizeof(char *));
 	i = -1;
 	while (++i < data->map->height)
 		data->map->copymap[i] = ft_strdup(data->map->allmap[i]);
-	ft_copymap_control(data, data->map->copymap);
+	ft_copymap_control(data, data->map->copymap, data->chr->position_i,
+		data->chr->position_j);
+	if (data->map->copy_c != 0 || data->map->copy_e != 0)
+		ft_error("Map is not playable");
 }
 
-void	ft_copymap_control(t_data *data, char **copymap)
+void	ft_copymap_control(t_data *data, char **copymap, int i, int j)
 {
-	
+
+	if (copymap[i][j] != '1')
+	{
+		if (copymap[i][j] == 'C')
+			data->map->copy_c--;
+		else if (copymap[i][j] == 'E')
+			data->map->copy_e--;
+		copymap[i][j] = 'x';
+		if (copymap[i][j + 1] != '1' \
+			&& copymap[i][j + 1] != 'x')
+			ft_copymap_control(data, copymap, i, j + 1);
+		if (copymap[i][j - 1] != '1' \
+			&& copymap[i][j - 1] != 'x')
+			ft_copymap_control(data, copymap, i, j - 1);
+		if (copymap[i + 1][j] != '1' \
+			&& copymap[i + 1][j] != 'x')
+			ft_copymap_control(data, copymap, i + 1, j);
+		if (copymap[i - 1][j] != '1' \
+			&& copymap[i - 1][j] != 'x')
+			ft_copymap_control(data, copymap, i - 1, j);
+	}
 }

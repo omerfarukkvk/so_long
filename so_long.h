@@ -10,6 +10,8 @@
 
 typedef struct chr
 {
+	int	position_i;
+	int	position_j;
 }   t_chr;
 
 
@@ -20,6 +22,8 @@ typedef struct s_map
 	int		c_cnt;
 	int		e_cnt;
 	int		p_cnt;
+	int		copy_c;
+	int		copy_e;
 	char	**allmap;
 	char	**copymap;
 }   t_map;
@@ -42,6 +46,6 @@ void	ft_wall_control(t_data *data, char **allmap);
 void	ft_error(char *msg);
 void	ft_component_control(t_data *data, char **allmap);
 void	ft_playable_control(t_data *data);
-void	ft_copymap_control(t_data *data, char **copymap);
+void	ft_copymap_control(t_data *data, char **copymap, int i, int y);
 
 #endif
