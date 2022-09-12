@@ -152,13 +152,10 @@ void	ft_playable_control(t_data *data)
 
 void	ft_copymap_control(t_data *data, char **copymap, int i, int j)
 {
-
-	if (copymap[i][j] != '1')
+	if (copymap[i][j] != '1' && copymap[i][j] != 'E')
 	{
 		if (copymap[i][j] == 'C')
 			data->map->copy_c--;
-		else if (copymap[i][j] == 'E')
-			data->map->copy_e--;
 		copymap[i][j] = 'x';
 		if (copymap[i][j + 1] != '1' \
 			&& copymap[i][j + 1] != 'x')
@@ -173,4 +170,6 @@ void	ft_copymap_control(t_data *data, char **copymap, int i, int j)
 			&& copymap[i - 1][j] != 'x')
 			ft_copymap_control(data, copymap, i - 1, j);
 	}
+	else
+		data->map->copy_e = 0;
 }
