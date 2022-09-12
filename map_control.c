@@ -173,3 +173,65 @@ void	ft_copymap_control(t_data *data, char **copymap, int i, int j)
 	else
 		data->map->copy_e = 0;
 }
+
+void	ft_render_map(t_data *data)
+{
+	int	i;
+	int	j;
+
+	ft_assets(data);
+	i = -1;
+	while (++i < data->map->height)
+	{
+		j = -1;
+		while (++j < data->map->width)
+		{
+			mlx_put_image_to_window(data->mlx, data->win, data->floor, j * 32, i * 32);
+		}
+	}
+	ft_render_others(data);
+}
+
+void	ft_assets(t_data *data)
+{
+	data->chr->size = 32;
+	data->chr->up = mlx_xpm_file_to_image(data->mlx, "./assets/W.xpm",
+			&data->chr->size, &data->chr->size);
+	data->chr->down = mlx_xpm_file_to_image(data->mlx, "./assets/S.xpm",
+			&data->chr->size, &data->chr->size);
+	data->chr->left = mlx_xpm_file_to_image(data->mlx, "./assets/A.xpm",
+			&data->chr->size, &data->chr->size);
+	data->chr->right = mlx_xpm_file_to_image(data->mlx, "./assets/D.xpm",
+			&data->chr->size, &data->chr->size);
+	data->exit = mlx_xpm_file_to_image(data->mlx, "./assets/E.xpm",
+			&data->chr->size, &data->chr->size);
+	data->collectible = mlx_xpm_file_to_image(data->mlx, "./assets/C.xpm",
+			&data->chr->size, &data->chr->size);
+	data->wall = mlx_xpm_file_to_image(data->mlx, "./assets/wall.xpm",
+			&data->chr->size, &data->chr->size);
+	data->floor = mlx_xpm_file_to_image(data->mlx, "./assets/bg.xpm",
+			&data->chr->size, &data->chr->size);
+}
+
+void	ft_render_others(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (++i < data->map->height)
+	{
+		j = -1;
+		while (++j < data->map->width)
+		{
+			if (data->map->allmap[i][j] == '1')
+				mlx_put_image_to_window(data->mlx, data->win, data->wall, j * 32, i * 32);
+			else if (data->map->allmap[i][j] == 'C')
+				mlx_put_image_to_window(data->mlx, data->win, data->collectible, j * 32, i * 32);
+			else if (data->map->allmap[i][j] == 'E')
+				mlx_put_image_to_window(data->mlx, data->win, data->exit, j * 32, i * 32);
+			else if (data->map->allmap[i][j] == 'P')
+				mlx_put_image_to_window(data->mlx, data->win, data->chr->down, j * 32, i * 32);
+		}
+	}
+}

@@ -10,8 +10,14 @@
 
 typedef struct chr
 {
-	int	position_i;
-	int	position_j;
+	int		position_i;
+	int		position_j;
+	int		size;
+	int		step_cnt;
+	void	*up;
+	void	*down;
+	void	*left;
+	void	*right;
 }   t_chr;
 
 
@@ -35,6 +41,10 @@ typedef struct s_data
     t_map	*map;
     void	*mlx;
     void	*win;
+	void	*exit;
+	void	*collectible;
+	void	*wall;
+	void	*floor;
 }   t_data;
 
 void	ft_map_control(char *path, t_data *data);
@@ -47,5 +57,9 @@ void	ft_error(char *msg);
 void	ft_component_control(t_data *data, char **allmap);
 void	ft_playable_control(t_data *data);
 void	ft_copymap_control(t_data *data, char **copymap, int i, int y);
+void	ft_render_map(t_data *data);
+void	ft_assets(t_data *data);
+void	ft_render_others(t_data *data);
+
 
 #endif
