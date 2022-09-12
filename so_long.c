@@ -6,6 +6,45 @@ void	ft_error(char *msg)
 	exit(0);
 }
 
+int	ft_close(t_data *data)
+{
+	int	i;
+
+	mlx_destroy_image(data->mlx, data->chr->up);
+	mlx_destroy_image(data->mlx, data->chr->down);
+	mlx_destroy_image(data->mlx, data->chr->left);
+	mlx_destroy_image(data->mlx, data->chr->right);
+	mlx_destroy_image(data->mlx, data->exit);
+	mlx_destroy_image(data->mlx, data->collectible);
+	mlx_destroy_image(data->mlx, data->wall);
+	mlx_destroy_image(data->mlx, data->floor);
+	i = -1;
+	while (++i < data->map->height)
+		free(data->map->allmap[i]);
+	mlx_destroy_window(data->mlx, data->win);
+	exit(0);
+	return (0);
+}
+
+int	ft_key(int keycode, t_data *data)
+{
+	if (keycode == 53)
+		ft_close(data);
+	else if (keycode == 0 || keycode == 1 || keycode == 2 || keycode == 13)
+	{
+		if (keycode == 0)
+			data->chr->position_j--;
+		else if (keycode == 1)
+			data->chr->position_j++;
+		else if (keycode == 2)
+			data->chr->position_i--;
+		else if (keycode == 13)
+			data->chr->position_i++;
+		ft_render_map(data);
+	}
+	return (0);
+}
+
 int main(int ac, char **av)
 {
     t_data  *data;
@@ -22,6 +61,8 @@ int main(int ac, char **av)
 		data->win = mlx_new_window(data->mlx, data->map->width * 32,
 			data->map->height * 32, "SOLONG");
 		ft_render_map(data);
+		mlx_hook(data->win, 2, 1L << 0, ft_key, data);
+		mlx_hook(data->win, 17, 0, ft_close, data);
         mlx_loop(data->mlx);
     }
     else

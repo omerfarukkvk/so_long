@@ -174,12 +174,13 @@ void	ft_copymap_control(t_data *data, char **copymap, int i, int j)
 		data->map->copy_e = 0;
 }
 
-void	ft_render_map(t_data *data)
+void	ft_render_map(t_data *data, int keycode)
 {
 	int	i;
 	int	j;
 
 	ft_assets(data);
+	mlx_clear_window(data->mlx, data->win);
 	i = -1;
 	while (++i < data->map->height)
 	{
@@ -190,6 +191,7 @@ void	ft_render_map(t_data *data)
 		}
 	}
 	ft_render_others(data);
+	ft_update_map(data, keycode);
 }
 
 void	ft_assets(t_data *data)
@@ -234,4 +236,9 @@ void	ft_render_others(t_data *data)
 				mlx_put_image_to_window(data->mlx, data->win, data->chr->down, j * 32, i * 32);
 		}
 	}
+}
+
+void	ft_update_map(t_data *dat, int keycode)
+{
+	
 }

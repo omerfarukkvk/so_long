@@ -60,6 +60,9 @@ void	ft_copymap_control(t_data *data, char **copymap, int i, int y);
 void	ft_render_map(t_data *data);
 void	ft_assets(t_data *data);
 void	ft_render_others(t_data *data);
-
+int		ft_close(t_data *data);
+int		ft_key(int keycode, t_data *data);
+void	ft_render_map(t_data *data, int keycode);
+void	ft_update_map(t_data *data, int keycode);
 
 #endif
