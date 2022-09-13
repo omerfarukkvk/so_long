@@ -32,17 +32,8 @@ int	ft_key(int keycode, t_data *data)
 		ft_close(data);
 	else if (keycode == 0 || keycode == 1 || keycode == 2 || keycode == 13)
 	{
-		if (keycode == 0)
-			data->chr->position_j--;
-		else if (keycode == 1)
-			data->chr->position_j++;
-		else if (keycode == 2)
-			data->chr->position_i--;
-		else if (keycode == 13)
-			data->chr->position_i++;
-		data->chr->step_cnt++;
+		ft_update_map(data, keycode);
 		ft_print_step(data);
-		ft_render_map(data);
 	}
 	return (0);
 }
@@ -58,7 +49,7 @@ int main(int ac, char **av)
         data->chr = ft_calloc(1, sizeof(t_chr));
 		data->chr->step_cnt = 0;
 		ft_map_control(av[1], data);
-         data->mlx = mlx_init();
+        data->mlx = mlx_init();
 		ft_read_map(data, av[1]);
 		ft_item_control(data);
 		data->win = mlx_new_window(data->mlx, data->map->width * 32,
