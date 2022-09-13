@@ -40,6 +40,8 @@ int	ft_key(int keycode, t_data *data)
 			data->chr->position_i--;
 		else if (keycode == 13)
 			data->chr->position_i++;
+		data->chr->step_cnt++;
+		ft_print_step(data);
 		ft_render_map(data);
 	}
 	return (0);
@@ -54,6 +56,7 @@ int main(int ac, char **av)
         data = ft_calloc(1, sizeof(t_data));
         data->map = ft_calloc(sizeof(t_map), 1);
         data->chr = ft_calloc(1, sizeof(t_chr));
+		data->chr->step_cnt = 0;
 		ft_map_control(av[1], data);
          data->mlx = mlx_init();
 		ft_read_map(data, av[1]);

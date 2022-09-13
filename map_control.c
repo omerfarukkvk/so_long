@@ -28,7 +28,7 @@ void	ft_map_control(char *path, t_data *data)
 	data->map->width = (int)ft_strlen(line)-1;
 	while (line)
 	{
-		if (ft_map_size_check(data, line))
+		if (!ft_strlen(line) != data->map->width)
 			ft_error("wrong mapsize");
 		free(line);
 		line = get_next_line(fd);
@@ -36,14 +36,6 @@ void	ft_map_control(char *path, t_data *data)
 	} 
 	free(line);
 	close(fd);
-}
-
-int	ft_map_size_check(t_data *data,char *line)
-{
-	return (((int)ft_strlen(line) - 1 != data->map->width
-			&& line[ft_strlen(line) - 1] == '\n')
-		|| (line[ft_strlen(line) - 1] != '\n'
-			&& (int)ft_strlen(line) != data->map->width));
 }
 
 void	ft_read_map(t_data *data, char *path)
@@ -66,7 +58,6 @@ void	ft_read_map(t_data *data, char *path)
 		i++;
 	}
 	data->map->allmap[i] = 0;
-	i = 0;	
 	free(line);
 	close(fd);
 }
@@ -136,7 +127,7 @@ void	ft_component_control(t_data *data, char **allmap)
 
 void	ft_playable_control(t_data *data)
 {
-	int	i;
+	int		i;
 
 	data->map->copy_c = data->map->c_cnt;
 	data->map->copy_e = data->map->e_cnt;
@@ -186,9 +177,7 @@ void	ft_render_map(t_data *data, int keycode)
 	{
 		j = -1;
 		while (++j < data->map->width)
-		{
 			mlx_put_image_to_window(data->mlx, data->win, data->floor, j * 32, i * 32);
-		}
 	}
 	ft_render_others(data);
 	ft_update_map(data, keycode);
@@ -238,7 +227,12 @@ void	ft_render_others(t_data *data)
 	}
 }
 
-void	ft_update_map(t_data *dat, int keycode)
+void	ft_update_map(t_data *data, int keycode)
 {
 	
+}
+
+void	ft_print_step(t_data *data)
+{
+	ft_printf("Step: %d\n", data->step);
 }
