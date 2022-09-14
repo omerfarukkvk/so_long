@@ -25,10 +25,13 @@ void	ft_left(t_data *data, int i, int j)
 			data->chr->position_j--;
 			data->chr->step_cnt++;
 			mlx_clear_window(data->mlx, data->win);
+			ft_printf("Step: %d\n", data->chr->step_cnt);
 			ft_render_map(data);
 		}
 		else if (data->map->allmap[i][j - 1] == 'E' && data->map->c_cnt == 0)
 		{
+			data->chr->step_cnt++;
+			ft_printf("Step: %d\n", data->chr->step_cnt);
 			ft_printf("You win!");
 			ft_close(data);
 		}
@@ -48,10 +51,13 @@ void	ft_right(t_data *data, int i, int j)
 			data->chr->position_j++;
 			data->chr->step_cnt++;
 			mlx_clear_window(data->mlx, data->win);
+			ft_printf("Step: %d\n", data->chr->step_cnt);
 			ft_render_map(data);
 		}
 		else if (data->map->allmap[i][j + 1] == 'E' && data->map->c_cnt == 0)
 		{
+			data->chr->step_cnt++;
+			ft_printf("Step: %d\n", data->chr->step_cnt);
 			ft_printf("You win!");
 			ft_close(data);
 		}
@@ -71,10 +77,13 @@ void	ft_up(t_data *data, int i, int j)
 			data->chr->position_i--;
 			data->chr->step_cnt++;
 			mlx_clear_window(data->mlx, data->win);
+			ft_printf("Step: %d\n", data->chr->step_cnt);
 			ft_render_map(data);
 		}
 		else if (data->map->allmap[i - 1][j] == 'E' && data->map->c_cnt == 0)
 		{
+			data->chr->step_cnt++;
+			ft_printf("Step: %d\n", data->chr->step_cnt);
 			ft_printf("You win!");
 			ft_close(data);
 		}
@@ -94,10 +103,13 @@ void	ft_down(t_data *data, int i, int j)
 			data->chr->position_i++;
 			data->chr->step_cnt++;
 			mlx_clear_window(data->mlx, data->win);
+			ft_printf("Step: %d\n", data->chr->step_cnt);
 			ft_render_map(data);
 		}
 		else if (data->map->allmap[i + 1][j] == 'E' && data->map->c_cnt == 0)
 		{
+			data->chr->step_cnt++;
+			ft_printf("Step: %d\n", data->chr->step_cnt);
 			ft_printf("You win!");
 			ft_close(data);
 		}

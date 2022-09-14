@@ -31,7 +31,7 @@ fclean:
 	make fclean -C ./ft_printf
 
 norm:
-	norminette ./*.c
+	norminette ./*.[ch]
 
 re : fclean all
 

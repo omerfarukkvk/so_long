@@ -77,5 +77,6 @@ void	ft_right(t_data *data, int i, int j);
 void	ft_up(t_data *data, int i, int j);
 void	ft_down(t_data *data, int i, int j);
 int		ft_line_size_check(char *line, t_data *data);
+void	ft_put_step(t_data *data);
 
 #endif

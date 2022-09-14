@@ -82,3 +82,15 @@ void	ft_update_map(t_data *data, int keycode)
 	else if (keycode == 13)
 		ft_up(data, i, j);
 }
+
+void	ft_put_step(t_data *data)
+{
+	char	*step;
+	char	*tmp;
+
+	step = ft_itoa(data->chr->step_cnt);
+	tmp = ft_strjoin("Step: ", step);
+	mlx_string_put(data->mlx, data->win, 10, 10, 0xFF0000, tmp);
+	free(step);
+	free(tmp);
+}

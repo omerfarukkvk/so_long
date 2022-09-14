@@ -36,6 +36,8 @@ int	ft_close(t_data *data)
 		free(data->map->copymap[i]);
 		free(data->map->allmap[i]);
 	}
+	free(data->map->copymap);
+	free(data->map->allmap);
 	exit(0);
 	return (0);
 }
@@ -47,8 +49,7 @@ int	ft_key(int keycode, t_data *data)
 	else if (keycode == 0 || keycode == 1 || keycode == 2 || keycode == 13)
 	{
 		ft_update_map(data, keycode);
-		ft_printf("Step: %d\n", data->chr->step_cnt);
-		ft_printf("Collectible: %d\n", data->map->c_cnt);
+		ft_put_step(data);
 	}
 	return (0);
 }
