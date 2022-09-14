@@ -1,4 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long_utils3.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: okavak <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/14 20:08:07 by okavak            #+#    #+#             */
+/*   Updated: 2022/09/14 20:08:09 by okavak           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
+
+void	ft_assets(t_data *data)
+{
+	data->chr->size = 32;
+	data->chr->up = mlx_xpm_file_to_image(data->mlx, "./assets/W.xpm",
+			&data->chr->size, &data->chr->size);
+	data->chr->down = mlx_xpm_file_to_image(data->mlx, "./assets/S.xpm",
+			&data->chr->size, &data->chr->size);
+	data->chr->left = mlx_xpm_file_to_image(data->mlx, "./assets/A.xpm",
+			&data->chr->size, &data->chr->size);
+	data->chr->right = mlx_xpm_file_to_image(data->mlx, "./assets/D.xpm",
+			&data->chr->size, &data->chr->size);
+	data->exit = mlx_xpm_file_to_image(data->mlx, "./assets/E.xpm",
+			&data->chr->size, &data->chr->size);
+	data->collectible = mlx_xpm_file_to_image(data->mlx, "./assets/C.xpm",
+			&data->chr->size, &data->chr->size);
+	data->wall = mlx_xpm_file_to_image(data->mlx, "./assets/wall.xpm",
+			&data->chr->size, &data->chr->size);
+	data->floor = mlx_xpm_file_to_image(data->mlx, "./assets/bg.xpm",
+			&data->chr->size, &data->chr->size);
+}
 
 void	ft_render_others(t_data *data)
 {
@@ -12,13 +45,17 @@ void	ft_render_others(t_data *data)
 		while (++j < data->map->width)
 		{
 			if (data->map->allmap[i][j] == '1')
-				mlx_put_image_to_window(data->mlx, data->win, data->wall, j * 32, i * 32);
+				mlx_put_image_to_window(data->mlx, data->win,
+					data->wall, j * 32, i * 32);
 			else if (data->map->allmap[i][j] == 'C')
-				mlx_put_image_to_window(data->mlx, data->win, data->collectible, j * 32, i * 32);
+				mlx_put_image_to_window(data->mlx, data->win,
+					data->collectible, j * 32, i * 32);
 			else if (data->map->allmap[i][j] == 'E')
-				mlx_put_image_to_window(data->mlx, data->win, data->exit, j * 32, i * 32);
+				mlx_put_image_to_window(data->mlx, data->win,
+					data->exit, j * 32, i * 32);
 			else if (data->map->allmap[i][j] == 'P')
-				mlx_put_image_to_window(data->mlx, data->win, data->chr->down, j * 32, i * 32);
+				mlx_put_image_to_window(data->mlx, data->win,
+					data->chr->down, j * 32, i * 32);
 		}
 	}
 }
@@ -44,9 +81,4 @@ void	ft_update_map(t_data *data, int keycode)
 		ft_right(data, i, j);
 	else if (keycode == 13)
 		ft_up(data, i, j);
-}
-
-void	ft_print_step(t_data *data)
-{
-	ft_printf("Step: %d\n", data->chr->step_cnt);
 }

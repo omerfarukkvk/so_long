@@ -1,11 +1,40 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long_utils2.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: okavak <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/14 20:07:59 by okavak            #+#    #+#             */
+/*   Updated: 2022/09/14 20:08:01 by okavak           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
-void	ft_component_control(t_data *data, char **allmap)
+void	ft_wall_control(t_data *data, char **allmap)
 {
 	int	i;
 	int	j;
 
 	i = -1;
+	while (++i < data->map->height)
+	{
+		if (allmap[i][0] == '1' && allmap[i][data->map->width - 1] == '1')
+		{
+			j = 0;
+			while (allmap[i][j] == '1')
+				j++;
+		}
+		else
+			ft_error("Map wall wrong. Please check it.");
+	}
+}
+
+void	ft_component_control(t_data *data, char **allmap, int i)
+{
+	int	j;
+
 	while (++i < data->map->height)
 	{
 		j = -1;
@@ -77,34 +106,13 @@ void	ft_render_map(t_data *data)
 	int	j;
 
 	ft_assets(data);
-	mlx_clear_window(data->mlx, data->win);
 	i = -1;
 	while (++i < data->map->height)
 	{
 		j = -1;
 		while (++j < data->map->width)
-			mlx_put_image_to_window(data->mlx, data->win, data->floor, j * 32, i * 32);
+			mlx_put_image_to_window(data->mlx, data->win,
+				data->floor, j * 32, i * 32);
 	}
 	ft_render_others(data);
-}
-
-void	ft_assets(t_data *data)
-{
-	data->chr->size = 32;
-	data->chr->up = mlx_xpm_file_to_image(data->mlx, "./assets/W.xpm",
-			&data->chr->size, &data->chr->size);
-	data->chr->down = mlx_xpm_file_to_image(data->mlx, "./assets/S.xpm",
-			&data->chr->size, &data->chr->size);
-	data->chr->left = mlx_xpm_file_to_image(data->mlx, "./assets/A.xpm",
-			&data->chr->size, &data->chr->size);
-	data->chr->right = mlx_xpm_file_to_image(data->mlx, "./assets/D.xpm",
-			&data->chr->size, &data->chr->size);
-	data->exit = mlx_xpm_file_to_image(data->mlx, "./assets/E.xpm",
-			&data->chr->size, &data->chr->size);
-	data->collectible = mlx_xpm_file_to_image(data->mlx, "./assets/C.xpm",
-			&data->chr->size, &data->chr->size);
-	data->wall = mlx_xpm_file_to_image(data->mlx, "./assets/wall.xpm",
-			&data->chr->size, &data->chr->size);
-	data->floor = mlx_xpm_file_to_image(data->mlx, "./assets/bg.xpm",
-			&data->chr->size, &data->chr->size);
 }
