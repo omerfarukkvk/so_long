@@ -61,7 +61,12 @@ void	ft_assets(t_data *data);
 void	ft_render_others(t_data *data);
 int		ft_close(t_data *data);
 int		ft_key(int keycode, t_data *data);
-void	ft_render_map(t_data *data, int keycode);
 void	ft_update_map(t_data *data, int keycode);
+void	ft_print_step(t_data *data);
+void	ft_left(t_data *data, int i, int j);
+void	ft_right(t_data *data, int i, int j);
+void	ft_up(t_data *data, int i, int j);
+void	ft_down(t_data *data, int i, int j);
+int	ft_line_size_check(char *line, t_data *data);
 
 #endif

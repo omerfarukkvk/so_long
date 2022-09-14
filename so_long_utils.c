@@ -25,10 +25,10 @@ void	ft_map_control(char *path, t_data *data)
 	line = get_next_line(fd);
 	if (line == 0)
 		ft_error("Map is empty");
-	data->map->width = (int)ft_strlen(line)-1;
+	data->map->width = (int)ft_strlen(line)-2;
 	while (line)
 	{
-		if (!ft_strlen(line) != data->map->width)
+		if (ft_line_size_check(line, data) == 1)
 			ft_error("wrong mapsize");
 		free(line);
 		line = get_next_line(fd);
@@ -36,6 +36,18 @@ void	ft_map_control(char *path, t_data *data)
 	} 
 	free(line);
 	close(fd);
+}
+
+int	ft_line_size_check(char *line, t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+		i++;
+	if (i != data->map->width - 1)
+		return (0);
+	return (1);
 }
 
 void	ft_read_map(t_data *data, char *path)
@@ -50,7 +62,7 @@ void	ft_read_map(t_data *data, char *path)
 	line = get_next_line(fd);
 	i=0;
 	data->map->allmap = malloc(sizeof(char *) * (data->map->height + 1));
-	while (line && i<=data->map->height)
+	while (line && (i <= data->map->height))
 	{
 		data->map->allmap[i] = ft_strdup(line);
 		free(line);

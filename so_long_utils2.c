@@ -71,7 +71,7 @@ void	ft_copymap_control(t_data *data, char **copymap, int i, int j)
 		data->map->copy_e = 0;
 }
 
-void	ft_render_map(t_data *data, int keycode)
+void	ft_render_map(t_data *data)
 {
 	int	i;
 	int	j;
@@ -86,7 +86,6 @@ void	ft_render_map(t_data *data, int keycode)
 			mlx_put_image_to_window(data->mlx, data->win, data->floor, j * 32, i * 32);
 	}
 	ft_render_others(data);
-	ft_update_map(data, keycode);
 }
 
 void	ft_assets(t_data *data)

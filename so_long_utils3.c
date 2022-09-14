@@ -30,27 +30,23 @@ void	ft_update_map(t_data *data, int keycode)
 
 	i = data->chr->position_i;
 	j = data->chr->position_j;
-	if (data->map->allmap[data->chr->position_i][data->chr->position_j] == 'E')
+	if (data->map->allmap[data->chr->position_i][data->chr->position_j] == 'E' \
+			&& data->map->c_cnt == 0)
 	{
-		if (data->map->c_cnt == 0)
-		{
-			ft_error("You win!");
-			ft_close(data);
-		}
-		else
-			ft_error("You need to collect all collectibles");
+		ft_error("You win!");
+		ft_close(data);
 	}
 	if (keycode == 0)
 		ft_left(data, i, j);
 	else if (keycode == 1)
-		ft_right(data, i, j);
-	else if (keycode == 2)
-		ft_up(data, i, j);
-	else if (keycode == 13)
 		ft_down(data, i, j);
+	else if (keycode == 2)
+		ft_right(data, i, j);
+	else if (keycode == 13)
+		ft_up(data, i, j);
 }
 
 void	ft_print_step(t_data *data)
 {
-	ft_printf("Step: %d\n", data->step);
+	ft_printf("Step: %d\n", data->chr->step_cnt);
 }

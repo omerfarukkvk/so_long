@@ -20,8 +20,10 @@ int	ft_close(t_data *data)
 	mlx_destroy_image(data->mlx, data->floor);
 	i = -1;
 	while (++i < data->map->height)
+	{
+		free(data->map->copymap[i]);
 		free(data->map->allmap[i]);
-	mlx_destroy_window(data->mlx, data->win);
+	}
 	exit(0);
 	return (0);
 }
