@@ -58,6 +58,8 @@ void	ft_render_others(t_data *data)
 			else if (data->map->allmap[i][j] == 'P')
 				mlx_put_image_to_window(data->mlx, data->win,
 					data->chr->down, j * 32, i * 32);
+			else if (data->map->allmap[i][j] != '0')
+				ft_error("Invalid map");
 		}
 	}
 }

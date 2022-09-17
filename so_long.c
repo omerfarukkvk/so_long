@@ -22,10 +22,7 @@ int	ft_close(t_data *data)
 {
 	int	i;
 
-	mlx_destroy_image(data->mlx, data->chr->up);
 	mlx_destroy_image(data->mlx, data->chr->down);
-	mlx_destroy_image(data->mlx, data->chr->left);
-	mlx_destroy_image(data->mlx, data->chr->right);
 	mlx_destroy_image(data->mlx, data->exit);
 	mlx_destroy_image(data->mlx, data->collectible);
 	mlx_destroy_image(data->mlx, data->wall);
