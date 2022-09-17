@@ -20,14 +20,17 @@ void	ft_wall_control(t_data *data, char **allmap)
 	i = -1;
 	while (++i < data->map->height)
 	{
-		if (allmap[i][0] == '1' && allmap[i][data->map->width - 1] == '1')
+		if (allmap[i][0] != '1' || allmap[i][data->map->width - 1] != '1')
+			ft_error("Map is not closed");
+		if (i == 0 || i == data->map->height - 1)
 		{
-			j = 0;
-			while (allmap[i][j] == '1')
-				j++;
+			j = -1;
+			while (++j < data->map->width)
+			{
+				if (allmap[i][j] != '1')
+					ft_error("Map is not closed");
+			}
 		}
-		else
-			ft_error("Map wall wrong. Please check it.");
 	}
 }
 
