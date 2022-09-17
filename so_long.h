@@ -49,6 +49,7 @@ typedef struct s_data
 {
 	t_chr	*chr;
 	t_map	*map;
+	int		xpm_error;
 	void	*mlx;
 	void	*win;
 	void	*exit;
@@ -78,5 +79,6 @@ void	ft_up(t_data *data, int i, int j);
 void	ft_down(t_data *data, int i, int j);
 int		ft_line_size_check(char *line, t_data *data);
 void	ft_put_step(t_data *data);
+void	ft_xpm_file_control(t_data *data);
 
 #endif

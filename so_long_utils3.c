@@ -14,6 +14,8 @@
 
 void	ft_assets(t_data *data)
 {
+	if (data->xpm_error == 1)
+		ft_error("XPM file error");
 	data->chr->size = 32;
 	data->chr->up = mlx_xpm_file_to_image(data->mlx, "./assets/W.xpm",
 			&data->chr->size, &data->chr->size);
@@ -93,4 +95,30 @@ void	ft_put_step(t_data *data)
 	mlx_string_put(data->mlx, data->win, 10, 10, 0xFF0000, tmp);
 	free(step);
 	free(tmp);
+}
+
+void	ft_xpm_file_control(t_data *data)
+{
+	int	fd;
+
+	fd = open("./assets/S.xpm", O_RDONLY);
+	if (fd == -1)
+		data->xpm_error = 1;
+	close(fd);
+	fd = open("./assets/E.xpm", O_RDONLY);
+	if (fd == -1)
+		data->xpm_error = 1;
+	close(fd);
+	fd = open("./assets/C.xpm", O_RDONLY);
+	if (fd == -1)
+		data->xpm_error = 1;
+	close(fd);
+	fd = open("./assets/wall.xpm", O_RDONLY);
+	if (fd == -1)
+		data->xpm_error = 1;
+	close(fd);
+	fd = open("./assets/bg.xpm", O_RDONLY);
+	if (fd == -1)
+		data->xpm_error = 1;
+	close(fd);
 }

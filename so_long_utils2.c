@@ -105,6 +105,7 @@ void	ft_render_map(t_data *data)
 	int	i;
 	int	j;
 
+	ft_xpm_file_control(data);
 	ft_assets(data);
 	i = -1;
 	while (++i < data->map->height)
