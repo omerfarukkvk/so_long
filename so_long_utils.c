@@ -40,7 +40,7 @@ void	ft_map_control(char *path, t_data *data)
 	data->map->width = (int)ft_strlen(line)-2;
 	while (line)
 	{
-		if (ft_line_size_check(line, data) == 1)
+		if ((int)ft_strlen(line) - 2 != data->map->width)
 			ft_error("wrong mapsize");
 		free(line);
 		line = get_next_line(fd);
@@ -48,18 +48,6 @@ void	ft_map_control(char *path, t_data *data)
 	}
 	free(line);
 	close(fd);
-}
-
-int	ft_line_size_check(char *line, t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
-		i++;
-	if (i != data->map->width - 1)
-		return (0);
-	return (1);
 }
 
 void	ft_read_map(t_data *data, char *path)

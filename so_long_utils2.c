@@ -21,14 +21,14 @@ void	ft_wall_control(t_data *data, char **allmap)
 	while (++i < data->map->height)
 	{
 		if (allmap[i][0] != '1' || allmap[i][data->map->width - 1] != '1')
-			ft_error("Map is not closed");
+			ft_error("Wrong vertical borders of the map!");
 		if (i == 0 || i == data->map->height - 1)
 		{
 			j = -1;
 			while (++j < data->map->width)
 			{
 				if (allmap[i][j] != '1')
-					ft_error("Map is not closed");
+					ft_error("Wrong horizontal borders of the map!");
 			}
 		}
 	}
