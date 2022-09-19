@@ -65,12 +65,6 @@ void	ft_update_map(t_data *data, int keycode)
 
 	i = data->chr->position_i;
 	j = data->chr->position_j;
-	if (data->map->allmap[data->chr->position_i][data->chr->position_j] == 'E' \
-			&& data->map->c_cnt == 0)
-	{
-		ft_error("You win!");
-		ft_close(data);
-	}
 	if (keycode == 0)
 		ft_left(data, i, j);
 	else if (keycode == 1)
@@ -96,16 +90,15 @@ void	ft_put_step(t_data *data)
 void	ft_xpm_file_control(t_data *data)
 {
 	int	fd;
-	int	fd2;
 
 	fd = open("./assets/S.xpm", O_RDONLY);
 	if (fd == -1)
 		data->xpm_error = 1;
 	close(fd);
-	fd2 = open("./assets/E.xpm", O_RDONLY);
-	if (fd2 == -1)
+	fd = open("./assets/E.xpm", O_RDONLY);
+	if (fd == -1)
 		data->xpm_error = 1;
-	close(fd2);
+	close(fd);
 	fd = open("./assets/C.xpm", O_RDONLY);
 	if (fd == -1)
 		data->xpm_error = 1;

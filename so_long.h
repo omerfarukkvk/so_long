@@ -26,10 +26,7 @@ typedef struct chr
 	int		position_j;
 	int		size;
 	int		step_cnt;
-	void	*up;
 	void	*down;
-	void	*left;
-	void	*right;
 }	t_chr;
 
 typedef struct s_map
