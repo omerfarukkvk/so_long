@@ -17,9 +17,6 @@ $(MLX) :
 $(NAME) : $(OBJS) $(GNLOBJS)
 	gcc -g $(OBJS) $(GNLOBJS) $(LFLAGS) ./libft/libft.a ./ft_printf/libftprintf.a -o $(NAME)
 
-.c.o:
-	$(CC) $(CFLAGS) -c $< -o $@
-
 clean:
 	rm -rf $(OBJS) $(NAME)
 
